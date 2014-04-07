@@ -11,7 +11,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.0.0.RELEASE</version>
+        <version>1.0.1.RELEASE</version>
     </parent>
 
     <properties>
@@ -21,6 +21,11 @@
     </properties>
     
     <repositories>
+    	<repository>
+            <id>spring-snapshots</id>
+            <url>http://repo.spring.io/libs-snapshot</url>
+            <snapshots><enabled>true</enabled></snapshots>
+        </repository>
 		<repository>
 			<id>org.springframework.maven.release</id>
 			<name>Spring Maven Release Repository</name>
