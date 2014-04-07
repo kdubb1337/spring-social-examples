@@ -26,7 +26,6 @@ import org.springframework.web.util.CookieGenerator;
  * @author Keith Donald
  */
 final class UserCookieGenerator {
-
 	private final CookieGenerator userCookieGenerator = new CookieGenerator();
 
 	public UserCookieGenerator() {
@@ -43,15 +42,14 @@ final class UserCookieGenerator {
 	
 	public String readCookieValue(HttpServletRequest request) {
 		Cookie[] cookies = request.getCookies();
-		if (cookies == null) {
+		
+		if (cookies == null)
 			return null;
-		}
-		for (Cookie cookie : cookies) {
-			if (cookie.getName().equals(userCookieGenerator.getCookieName())) {
+		
+		for (Cookie cookie : cookies)
+			if (cookie.getName().equals(userCookieGenerator.getCookieName()))
 				return cookie.getValue();
-			}
-		}
+		
 		return null;
 	}
-
 }

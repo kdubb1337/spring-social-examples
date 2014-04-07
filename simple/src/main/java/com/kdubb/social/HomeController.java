@@ -33,7 +33,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 public class HomeController {
-
 	private final Facebook facebook;
 	
 	@Inject
@@ -47,5 +46,4 @@ public class HomeController {
 		model.addAttribute("friends", friends);
 		return "home";
 	}
-
 }

@@ -30,9 +30,7 @@ import org.springframework.web.servlet.view.RedirectView;
  * @author Keith Donald
  */
 public final class UserInterceptor extends HandlerInterceptorAdapter {
-
 	private final UsersConnectionRepository connectionRepository;
-	
 	private final UserCookieGenerator userCookieGenerator = new UserCookieGenerator();
 
 	public UserInterceptor(UsersConnectionRepository connectionRepository) {
@@ -41,12 +39,12 @@ public final class UserInterceptor extends HandlerInterceptorAdapter {
 	
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		rememberUser(request, response);
-		handleSignOut(request, response);			
-		if (SecurityContext.userSignedIn() || requestForSignIn(request)) {
+		handleSignOut(request, response);
+		
+		if (SecurityContext.userSignedIn() || requestForSignIn(request))
 			return true;
-		} else {
-			return requireSignIn(request, response);
-		}
+
+		return requireSignIn(request, response);
 	}
 	
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
@@ -54,16 +52,17 @@ public final class UserInterceptor extends HandlerInterceptorAdapter {
 	}
 
 	// internal helpers
-
 	private void rememberUser(HttpServletRequest request, HttpServletResponse response) {
 		String userId = userCookieGenerator.readCookieValue(request);
-		if (userId == null) {
+		
+		if (userId == null)
 			return;
-		}
+
 		if (!userNotFound(userId)) {
 			userCookieGenerator.removeCookie(response);
 			return;
 		}
+		
 		SecurityContext.setCurrentUser(new User(userId));
 	}
 
@@ -88,5 +87,4 @@ public final class UserInterceptor extends HandlerInterceptorAdapter {
 		// doesn't bother checking a local user database: simply checks if the userId is connected to Facebook
 		return connectionRepository.createConnectionRepository(userId).findPrimaryConnection(Facebook.class) != null;
 	}
-	
 }

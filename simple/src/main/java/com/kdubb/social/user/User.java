@@ -21,7 +21,6 @@ package com.kdubb.social.user;
  * @author Keith Donald
  */
 public final class User {
-	
 	private final String id;
 	
 	public User(String id) {
@@ -31,5 +30,4 @@ public final class User {
 	public String getId() {
 		return id;
 	}
-	
 }
